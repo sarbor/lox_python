@@ -1,11 +1,11 @@
-from lexer.token import Token 
+from pylox.lexer.token import Token 
 from typing import List
-from lexer.token_types import Token_Type
+from pylox.lexer.token_types import Token_Type
 
 class Tokenizer:
-   def __init__(self, source: str):
+   def __init__(self):
       self.tokens = []
-      self.source = source
+      self.source = ""
       self.current = 0
       self.start = 0
       self.line_num = 1
@@ -16,13 +16,16 @@ class Tokenizer:
    def _add_token(self, token_type: Token_Type) -> None:
       if token_type == Token_Type.EOF:
          lexeme = ''
+         self.line_num = -1
       else:
          lexeme = self._current_text()
 
       token = Token(token_type, lexeme, self.line_num, None)
       self.tokens.append(token)
 
-   def tokenize(self) -> List[Token]:
+   def tokenize(self, text: str) -> List[Token]:
+      self.source = text
+
       while self.not_at_end():
          token_type = self.scan_token_type()
          if token_type:

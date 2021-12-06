@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from lexer.token_types import Token_Type
+from pylox.lexer.token_types import Token_Type
 
 @dataclass
 class Token:

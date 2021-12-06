@@ -9,8 +9,8 @@ class Lox:
       print(f'line: {line_num} {msg}', file=sys.stderr)
 
    def run(self, text):
-      tokenizer = Tokenizer(text)
-      tokens = tokenizer.tokenize()
+      tokenizer = Tokenizer()
+      tokens = tokenizer.tokenize(text)
       print(tokens)
 
       if self.has_err:
