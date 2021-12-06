@@ -13,6 +13,13 @@ class Tokenizer:
    def _current_text(self) -> str:
       return self.source[self.current]
 
+   def _add_source(self, text: str) -> None:
+      self.tokens = []
+      self.source = text
+      self.current = 0
+      self.start = 0
+      self.line_num = 1
+
    def _add_token(self, token_type: Token_Type) -> None:
       if token_type == Token_Type.EOF:
          lexeme = ''
@@ -24,7 +31,7 @@ class Tokenizer:
       self.tokens.append(token)
 
    def tokenize(self, text: str) -> List[Token]:
-      self.source = text
+      self._add_source(text)
 
       while self.not_at_end():
          token_type = self.scan_token_type()
