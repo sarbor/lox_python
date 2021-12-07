@@ -1,5 +1,5 @@
 import sys
-from lexer.tokenizer import Tokenizer
+from pylox.lexer.tokenizer import Tokenizer
 
 class Lox:
    has_err = False

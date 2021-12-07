@@ -1,51 +1,51 @@
-from enum import Enum
+from enum import Enum, auto
 
 class Token_Type(Enum):
-   LEFT_PAREN = '('
-   RIGHT_PAREN = ')'
-   LEFT_BRACE = '{'
-   RIGHT_BRACE = '}'
-   COMMA = ','
-   DOT = '.'
-   MINUS = '-'
-   PLUS = '+'
-   SEMICOLON = ';'
-   SLASH = '/'
-   STAR = '*'
+   LEFT_PAREN = auto()
+   RIGHT_PAREN = auto()
+   LEFT_BRACE = auto()
+   RIGHT_BRACE = auto()
+   COMMA = auto()
+   DOT = auto()
+   MINUS = auto()
+   PLUS = auto()
+   SEMICOLON = auto()
+   SLASH = auto()
+   STAR = auto()
 
-   BANG = '!'
-   NOT_EQUAL = '!='
-   EQUAL = '='
-   EQUAL_EQUAL = '=='
-   GREATER = '>'
-   GREATER_EQUAL = '>='
-   LESS = '<'
-   LESS_EQUAL = '<='
+   BANG = auto()
+   NOT_EQUAL = auto()
+   EQUAL = auto()
+   EQUAL_EQUAL = auto()
+   GREATER = auto()
+   GREATER_EQUAL = auto()
+   LESS = auto()
+   LESS_EQUAL = auto()
 
    #types
-   IDENTIFIER = 1
-   STRING = 2
-   NUMBER = 3
+   IDENTIFIER = auto()
+   STRING = auto()
+   NUMBER = auto()
 
    #keywords
-   AND = 4
-   CLASS = 5
-   ELSE = 6
-   FALSE = 7
-   FUN = 8
-   FOR = 9
-   IF = 10
-   NIL = 11
-   OR = 12
-   PRINT = 13
-   RETURN = 14
-   SUPER = 15
-   THIS = 16
-   TRUE = 17
-   VAR = 18
-   WHILE = 19
+   AND = auto()
+   CLASS = auto()
+   ELSE = auto()
+   FALSE = auto()
+   FUN = auto()
+   FOR = auto()
+   IF = auto()
+   NIL = auto()
+   OR = auto()
+   PRINT = auto()
+   RETURN = auto()
+   SUPER = auto()
+   THIS = auto()
+   TRUE = auto()
+   VAR = auto()
+   WHILE = auto()
 
-   EOF = 20
+   EOF = auto()
 
 
 
