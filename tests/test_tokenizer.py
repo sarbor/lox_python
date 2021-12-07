@@ -39,6 +39,12 @@ class TestTokenizer(unittest.TestCase):
       returned_tokens = self.tokenizer.tokenize(lox_program)
       self.assertEqual(returned_tokens, expected_tokens)
    
+   def test_comment(self):
+      lox_program = '//comment\n !'
+      expected_tokens = [Token(Token_Type.BANG, '!', 2, None),self._create_EOF_token()]
+      returned_tokens = self.tokenizer.tokenize(lox_program)
+      self.assertEqual(returned_tokens, expected_tokens)
+
    def test_equals(self):
       lox_program = '=='
       expected_tokens = [Token(Token_Type.EQUAL_EQUAL, '==', 1, None), self._create_EOF_token()]

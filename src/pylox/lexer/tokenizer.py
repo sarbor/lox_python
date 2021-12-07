@@ -90,6 +90,11 @@ class Tokenizer:
          case ';':
             return Token_Type.SEMICOLON
          case '/':
+            if self._peek() == '/':
+               while (next_char := self._peek()) != '\n' and next_char:
+                  self._increment_cursor()
+
+               return None
             return Token_Type.SLASH
          case '*':
             return Token_Type.STAR
