@@ -56,15 +56,11 @@ class Tokenizer:
 
    def _peek(self) -> Optional[str]:
       #checks if cursor is at last character
+      next_text = None
       self._increment_cursor()
-      if self._at_end():
-         return None
+      if not self._at_end():
+         next_text = self.source[self.current]
       self._decrement_cursor()
-
-      self._increment_cursor()
-      next_text = self.source[self.current]
-      self._decrement_cursor()
-
       return next_text
 
    def scan_token_type(self) -> Token_Type:
