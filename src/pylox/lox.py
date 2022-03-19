@@ -1,20 +1,13 @@
 import sys
 from pylox.lexer.tokenizer import Tokenizer
-
+from pylox.err import Lox_Err
 class Lox:
-   has_err = False
-
-   def report_error(self, line_num, msg):
-      self.has_err = True
-      print(f'line: {line_num} {msg}', file=sys.stderr)
-
    def run(self, text):
       tokenizer = Tokenizer()
-      tokens = tokenizer.tokenize(text)
-      print(tokens)
+      tokens, err = tokenizer.tokenize(text)
 
-      if self.has_err:
-         sys.exit(1)
+      if err:
+         err.report_error()
 
    def run_lox_file(self, filename):
       with open(filename) as program:
