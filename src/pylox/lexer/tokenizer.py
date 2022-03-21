@@ -26,8 +26,11 @@ class Tokenizer:
       if token_type == Token_Type.EOF:
          lexeme = ''
          self.line_num = -1
+      elif token_type == Token_Type.STRING:
+         #remove starting and ending quotes
+         lexeme = self.source[self.start+1:self.current]
       else:
-         lexeme = self._current_text()
+         lexeme = self._current_text() 
 
       token = Token(token_type, lexeme, self.line_num, None)
       self.tokens.append(token)
@@ -97,6 +100,8 @@ class Tokenizer:
          return Token_Type.SLASH, err
       elif current_text.isdigit():
          return self._get_number_token()
+      elif current_text == '\"':
+         return self._get_string_token()
       elif current_text == '*':
          return Token_Type.STAR, err
       elif current_text == '!':
@@ -142,6 +147,23 @@ class Tokenizer:
             self._increment_cursor()
 
       return Token_Type.NUMBER, err
+
+   def _get_string_token(self):
+      err = None
+
+      while (next_char := self._peek()) and next_char != '\"':
+         if next_char == '\n':
+            self.line_num += 1
+         self._increment_cursor()
+
+      #cant find closing quote
+      if self._peek() is None:
+         return None, Lox_Err(f'Unterminated string literal', self.line_num)
+      
+      #moves past the closing quote
+      self._increment_cursor()
+
+      return Token_Type.STRING, err
 
 
 
