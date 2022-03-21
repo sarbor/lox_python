@@ -103,5 +103,12 @@ class TestTokenizer(unittest.TestCase):
       self.assertIsNone(err)
       self.assertEqual(returned_tokens, expected_tokens)
 
+   def test_tokenizer_number(self):
+      lox_program = '1.2345'
+      expected_tokens = [Token(Token_Type.NUMBER, '1.2345', 1, None), self._create_EOF_token()]
+      returned_tokens, err = self.tokenizer.tokenize(lox_program)
+      self.assertIsNone(err)
+      self.assertEqual(returned_tokens, expected_tokens)
+
 if __name__ == '__main__':
    unittest.main()
