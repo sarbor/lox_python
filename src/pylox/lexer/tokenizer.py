@@ -11,6 +11,7 @@ class Tokenizer:
       self.start = 0
       self.line_num = 1
       self.error = None
+      self.reserved_keywords = self._initialize_reserved_keywords()
 
    def _current_text(self) -> str:
       return self.source[self.start:self.current+1]
@@ -100,6 +101,8 @@ class Tokenizer:
          return Token_Type.SLASH, err
       elif current_text.isdigit():
          return self._get_number_token()
+      elif current_text.isalpha():
+         return self._get_identifier_token()
       elif current_text == '\"':
          return self._get_string_token()
       elif current_text == '*':
@@ -133,7 +136,7 @@ class Tokenizer:
          return None, err
       elif current_text == ' ':
          return None, err
-      elif current_text == _:
+      else:
          return None, Lox_Err(msg=f'{self._current_text()} is not a valid token', line_num=self.line_num)
 
    def _get_number_token(self):
@@ -147,6 +150,19 @@ class Tokenizer:
             self._increment_cursor()
 
       return Token_Type.NUMBER, err
+
+   def _get_identifier_token(self):
+      err = None
+
+      while (next_char := self._peek()) and next_char.isalpha():
+         if next_char == '\n':
+            self.line_num += 1
+         self._increment_cursor()
+
+      if self._current_text() in self.reserved_keywords:
+         return self.reserved_keywords[self._current_text()], err
+
+      return Token_Type.IDENTIFIER, err
 
    def _get_string_token(self):
       err = None
@@ -165,6 +181,27 @@ class Tokenizer:
 
       return Token_Type.STRING, err
 
+
+   def _initialize_reserved_keywords(self):
+      reserved_keyword_to_token_type = dict()
+      reserved_keyword_to_token_type['and'] = Token_Type.AND
+      reserved_keyword_to_token_type['class'] = Token_Type.CLASS
+      reserved_keyword_to_token_type['else'] = Token_Type.ELSE
+      reserved_keyword_to_token_type['false'] = Token_Type.FALSE
+      reserved_keyword_to_token_type['for'] = Token_Type.FOR
+      reserved_keyword_to_token_type['fun'] = Token_Type.FUN
+      reserved_keyword_to_token_type['if'] = Token_Type.IF
+      reserved_keyword_to_token_type['nil'] = Token_Type.NIL
+      reserved_keyword_to_token_type['or'] = Token_Type.OR
+      reserved_keyword_to_token_type['print'] = Token_Type.PRINT
+      reserved_keyword_to_token_type['return'] = Token_Type.RETURN
+      reserved_keyword_to_token_type['super'] = Token_Type.SUPER
+      reserved_keyword_to_token_type['this'] = Token_Type.THIS
+      reserved_keyword_to_token_type['true'] = Token_Type.TRUE
+      reserved_keyword_to_token_type['var'] = Token_Type.VAR
+      reserved_keyword_to_token_type['while'] = Token_Type.WHILE
+
+      return reserved_keyword_to_token_type
 
 
 
