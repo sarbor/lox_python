@@ -7,3 +7,6 @@ class Token:
    lexeme: str
    line_num: int
    literal: object
+
+   def __repr__(self) -> str:
+       return self.lexeme

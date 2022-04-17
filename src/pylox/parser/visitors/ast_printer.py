@@ -11,10 +11,10 @@ class AST_Printer(Visitor):
       return self.parenthesize(expression)
 
    def visit_binary(self, binary: Binary):
-      return f'{binary.operator.lexeme} {binary.left.accept(self)} {binary.right.accept(self)}'
+      return f'{binary.operator} {binary.left.accept(self)} {binary.right.accept(self)}'
 
    def visit_unary(self, unary: Unary):
-      return f'{unary.operator.lexeme} {unary.expression.accept(self)}'
+      return f'{unary.operator} {unary.expression.accept(self)}'
 
    def visit_grouping(self, grouping: Grouping):
       return f'({grouping.expression.accept(self)})'
