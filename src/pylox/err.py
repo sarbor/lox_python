@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import sys
 
 @dataclass
 class Lox_Err:
